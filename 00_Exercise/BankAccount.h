@@ -9,16 +9,20 @@ class BankAccount {
 
 public:
 	void deposit(double amount) {
-		// TODO
+		m_lock.lockW();
+		this->m_balance += amount;
+		m_lock.unlockW();
 	}
 
 	double getBalance() const {
-		// TODO
-		return 0;
+
+		m_lock.lockR();
+		double amount = m_balance;
+		m_lock.unlockR();
+		return amount;
 	}
 
 	size_t getReaders() const {
-		// TODO
-		return 0;
+		return m_lock.getReaders();
 	}
 };
