@@ -15,7 +15,6 @@ public:
 	}
 
 	double getBalance() const {
-
 		m_lock.lockR();
 		double amount = m_balance;
 		m_lock.unlockR();
