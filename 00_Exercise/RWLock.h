@@ -27,20 +27,14 @@ public:
     }
 
     void lockW() {
-        m_mutex.lock();
-        return;
-        std::unique_lock<std::mutex> lock(m_mutex);
+        unique_lock<mutex> lock(m_mutex, std::defer_lock);
         lock.lock();
-        m_writeLocked = true;
+        return;
     }
 
     void unlockW() {
-        m_mutex.unlock();
-        return;
-        std::unique_lock<std::mutex> lock(m_mutex);
+        unique_lock<mutex> lock(m_mutex, std::defer_lock);
         lock.unlock();
-        m_writeLocked = false;
-        m_writingAllowed.notify_one();
-        m_readingAllowed.notify_all();
+        return;
     }
 };
