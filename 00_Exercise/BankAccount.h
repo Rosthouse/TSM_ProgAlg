@@ -11,13 +11,15 @@ public:
 	void deposit(double amount) {
 		m_lock.lockW();
 		this->m_balance += amount;
+		this_thread::sleep_for(chrono::milliseconds(100*rand()/RAND_MAX));
 		m_lock.unlockW();
 	}
 
 	double getBalance() const {
 		m_lock.lockR();
 		double amount = m_balance;
-		m_lock.unlockR();
+        this_thread::sleep_for(chrono::milliseconds(200*rand()/RAND_MAX));
+        m_lock.unlockR();
 		return amount;
 	}
 

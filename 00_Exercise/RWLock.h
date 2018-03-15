@@ -16,25 +16,36 @@ public:
     }
 
     void lockR() {
-        // TODO
-        m_readLocked += 1;
+        unique_lock<mutex> monitor(m_mutex);
+        while (m_writeLocked) {
+            m_readingAllowed.wait(monitor); //use while to prevent spurious wakeup
+        }
+        m_readLocked++;
 
     }
 
     void unlockR() {
-        // TODO
-        m_readLocked -= 1;
+        unique_lock<mutex> monitor(m_mutex);
+        if (m_readLocked) {
+            m_readLocked--;
+            if (m_readLocked == 0) {
+                m_writingAllowed.notify_one();
+            }
+        }
     }
 
     void lockW() {
-        unique_lock<mutex> lock(m_mutex, std::defer_lock);
-        lock.lock();
-        return;
+        unique_lock<mutex> monitor(m_mutex);
+        while (m_readLocked > 0 || m_writeLocked) {
+            m_writingAllowed.wait(monitor);
+        }
+        m_writeLocked = true;
     }
 
     void unlockW() {
-        unique_lock<mutex> lock(m_mutex, std::defer_lock);
-        lock.unlock();
-        return;
+        unique_lock<mutex> monitor(m_mutex);
+        m_writeLocked = false;
+        m_readingAllowed.notify_all();
+        m_writingAllowed.notify_one();
     }
 };
