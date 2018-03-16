@@ -1,6 +1,6 @@
 #include <iostream>
 #include <omp.h>
-#include "Stopwatch.h"
+#include <Stopwatch.h>
 
 using namespace std;
 
@@ -23,29 +23,50 @@ long long sumSerial(const int n) {
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Parallel summation with critical section
 static long long sumPar1(const int n) {
-    // TODO
-    return 0;
+    long long sum = 0;
+#pragma omp parallel for default(none) shared(sum)
+    for (int i = 1; i <= n; i++) {
+#pragma omp critical
+        {
+            sum += i;
+        }
+    }
+    return sum;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Parallel summation with atomic access
 static long long sumPar2(const int n) {
-    // TODO
-    return 0;
+    long long sum = 0;
+    int i;
+#pragma omp parallel for private(i) reduction(+:sum)
+    for (i = 1; i <= n; i++) {
+#pragma opm atomic
+        sum += i;
+    }
+    return sum;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Parallel summation with reduction
 static long long sumPar3(const int n) {
-    // TODO
-    return 0;
+    long long sum = 0;
+#pragma omp parallel for default(none) reduction(+:sum) shared(sum)
+    for (int i = 1; i <= n; i++) {
+        sum += i;
+    }
+    return sum;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Parallel summation with explicit locks
 static long long sumPar4(const int n) {
-    // TODO
-    return 0;
+	long long sum = 0;
+#pragma omp parallel for default(none) reduction(+:sum) shared(sum)
+	for (int i = 1; i <= n; i++) {
+		sum += i;
+	}
+	return sum;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
