@@ -81,13 +81,13 @@ static void processSerialOpt(const fipImage& input, fipImage& output) {
 	const int fSize2 = fSize / 2;
 	const int hFilter[][fSize] = {
 		{ 1, 1, 1 },
-	{ 0, 0, 0 },
-	{ -1,-1,-1 }
+		{ 0, 0, 0 },
+		{ -1,-1,-1 }
 	};
 	const int vFilter[][fSize] = {
 		{ 1, 0,-1 },
-	{ 1, 0,-1 },
-	{ 1, 0,-1 }
+		{ 1, 0,-1 },
+		{ 1, 0,-1 }
 	};
 
 	unsigned int maxu = output.getWidth() - fSize2;
@@ -125,6 +125,49 @@ static void processParallel(const fipImage& input, fipImage& output) {
 	assert(input.getWidth() == output.getWidth() && input.getHeight() == output.getHeight() && input.getImageSize() == output.getImageSize());
 	assert(input.getBitsPerPixel() == 32);
 
+
+	const int fSize = 3;
+	const int fSize2 = fSize / 2;
+	const int hFilter[][fSize] = {
+		{ 1, 1, 1 },
+	{ 0, 0, 0 },
+	{ -1,-1,-1 }
+	};
+	const int vFilter[][fSize] = {
+		{ 1, 0,-1 },
+	{ 1, 0,-1 },
+	{ 1, 0,-1 }
+	};
+
+	int oHeight = output.getHeight() -fSize2;
+	int oWidth = output.getWidth() -fSize2;
+
+#pragma omp parallel default(none)
+	{
+#pragma omp for
+		for ( int v = fSize2; v < oHeight; v++) {
+			for ( int u = fSize2; u < oWidth; u++) {
+				RGBQUAD iC;
+				int hC[3] = { 0, 0, 0 };
+				int vC[3] = { 0, 0, 0 };
+
+				for (unsigned int j = 0; j < fSize; j++) {
+					for (unsigned int i = 0; i < fSize; i++) {
+						input.getPixelColor(u + i - fSize2, v + j - fSize2, &iC);
+						hC[0] += hFilter[j][i] * iC.rgbBlue;
+						vC[0] += vFilter[j][i] * iC.rgbBlue;
+						hC[1] += hFilter[j][i] * iC.rgbGreen;
+						vC[1] += vFilter[j][i] * iC.rgbGreen;
+						hC[2] += hFilter[j][i] * iC.rgbRed;
+						vC[2] += vFilter[j][i] * iC.rgbRed;
+					}
+				}
+				RGBQUAD oC = { dist(hC[0], vC[0]), dist(hC[1], vC[1]), dist(hC[2], vC[2]), 255 };
+				output.setPixelColor(u, v, &oC);
+			}
+		}
+	}
+	
 	
 
 }
