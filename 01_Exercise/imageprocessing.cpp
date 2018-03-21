@@ -142,10 +142,9 @@ static void processParallel(const fipImage& input, fipImage& output) {
 	int oHeight = output.getHeight() -fSize2;
 	int oWidth = output.getWidth() -fSize2;
 
-#pragma omp parallel default(none)
-	{
-#pragma omp for
+#pragma omp parallel for shared(output, fSize2, oHeight, oWidth)
 		for ( int v = fSize2; v < oHeight; v++) {
+#pragma omp parallel for shared(output, fSize2, oWidth)
 			for ( int u = fSize2; u < oWidth; u++) {
 				RGBQUAD iC;
 				int hC[3] = { 0, 0, 0 };
@@ -166,7 +165,7 @@ static void processParallel(const fipImage& input, fipImage& output) {
 				output.setPixelColor(u, v, &oC);
 			}
 		}
-	}
+	
 	
 	
 
