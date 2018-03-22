@@ -196,6 +196,7 @@ int main(int argc, const char* argv[]) {
 	const int *vFilter;
 
 	switch(fSize) {
+	default:
 	case 3:
 		hFilter = hFilter3;
 		vFilter = vFilter3;
@@ -233,10 +234,10 @@ int main(int argc, const char* argv[]) {
 	
 	// process image on GPU with OpenCL and produce out2
 #ifdef USE_LOCAL_MEM
-	OCLData ocl = initOCL("../Exercise2/edges.cl", "edgesWithLocalMem");
+	OCLData ocl = initOCL("../02_Exercise/edges.cl", "edgesWithLocalMem");
 	cout << endl << "Start OpenCL on GPU with local memory" << endl;
 #else
-	OCLData ocl = initOCL("../Exercise2/edges.cl", "edges");
+	OCLData ocl = initOCL("../02_Exercise/edges.cl", "edges");
 	cout << endl << "Start OpenCL on GPU" << endl;
 #endif
 	sw.Start();

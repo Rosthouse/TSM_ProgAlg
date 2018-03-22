@@ -110,7 +110,7 @@ void processOCL(OCLData& ocl, const fipImage& input, fipImage& output, const int
 	try {
 		// the image format describes the properties of each pixel
 		cl::ImageFormat format;
-		format.image_channel_order = CL_BGRA;
+		format.image_channel_order = CL_RGBA;
 		format.image_channel_data_type = CL_UNSIGNED_INT8;
 
 		// create sampler object
