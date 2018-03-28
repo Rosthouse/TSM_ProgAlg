@@ -51,7 +51,7 @@ static long long sumPar2(const int n) {
 // Parallel summation with reduction
 static long long sumPar3(const int n) {
     long long sum = 0;
-#pragma omp parallel for default(none) reduction(+:sum) shared(sum)
+#pragma omp parallel for default(none) reduction(+:sum)
     for (int i = 1; i <= n; i++) {
         sum += i;
     }
@@ -62,7 +62,7 @@ static long long sumPar3(const int n) {
 // Parallel summation with explicit locks
 static long long sumPar4(const int n) {
 	long long sum = 0;
-#pragma omp parallel for default(none) reduction(+:sum) shared(sum)
+#pragma omp parallel for default(none) reduction(+:sum)
 	for (int i = 1; i <= n; i++) {
 		sum += i;
 	}

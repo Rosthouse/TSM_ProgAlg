@@ -9,25 +9,23 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/../FreeImage
 )
 
-set(LIBRARY_DIR  ${PROJECT_SOURCE_DIR}/DLL/x64)
 
-find_library()
+SET(CMAKE_FIND_LIBRARY_PREFIXES "")
+SET(CMAKE_FIND_LIBRARY_SUFFIXES ".lib" ".dll")
+set(LIBRARY_DIR ${CMAKE_HOME_DIRECTORY}/DLL/x64)
 
-find_library(
-        FREEIMAGE_LIB
-        NAMES FreeImage
-        PATHS ${LIBRARY_DIR}
-        PATH_SUFFIXES lib
-        NO_DEFAULT_PATH
-)
+message("LIBRARY_DIR:" ${LIBRARY_DIR})
+message("BINARY:" ${CMAKE_BINARY_DIR})
 
-find_library(
-        FREEIMAGEPLUS_LIB
-        NAMES FreeImagePlus
-        PATHS ${LIBRARY_DIR}
-        PATH_SUFFIXES lib
-        NO_DEFAULT_PATH
-)
+
+find_library(FREEIMAGE_LIB NAMES FreeImage PATHS ${LIBRARY_DIR})
+
+find_library(FREEIMAGEPLUS_LIB NAMES FreeImagePlus PATHS ${LIBRARY_DIR})
+
+
+message("FreeImage:" ${FREEIMAGE_LIB})
+message("FreeImagePlus:" ${FREEIMAGEPLUS_LIB})
+
 
 add_executable(01_Exercise
         main.cpp
@@ -40,6 +38,6 @@ target_link_libraries(
         ${FREEIMAGEPLUS_LIB}
 )
 
-configure_file(${PROJECT_SOURCE_DIR}/Dll/x64/FreeImage.dll FreeImage.dll COPYONLY)
-configure_file(${PROJECT_SOURCE_DIR}/Dll/x64/FreeImage.dll FreeImagePlus.dll COPYONLY)
+configure_file(${LIBRARY_DIR}/FreeImage.dll FreeImage.dll COPYONLY)
+configure_file(${LIBRARY_DIR}/FreeImage.dll FreeImagePlus.dll COPYONLY)
 
