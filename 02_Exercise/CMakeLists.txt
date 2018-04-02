@@ -22,15 +22,13 @@ add_library(FREEIMAGE_LIB SHARED IMPORTED)
 add_library(FREEIMAGEPLUS_LIB SHARED IMPORTED)
 add_library(OPEN_CL_LIB SHARED IMPORTED)
 
-set_property(TARGET FREEIMAGE_LIB PROPERTY IMPORTED_LOCATION "F:/Projects/Studium/TSM_ProgAlg/FreeImage/Win32/FreeImage.dll")
-set_property(TARGET FREEIMAGE_LIB PROPERTY IMPORTED_IMPLIB "F:/Projects/Studium/TSM_ProgAlg/FreeImage/Win32/FreeImage.lib")
+set_property(TARGET FREEIMAGE_LIB PROPERTY IMPORTED_LOCATION $ENV{FREEIMAGE_SDK}/Win32/FreeImage.dll)
+set_property(TARGET FREEIMAGE_LIB PROPERTY IMPORTED_IMPLIB $ENV{FREEIMAGE_SDK}/Win32/FreeImage.lib)
+configure_file($ENV{FREEIMAGE_SDK}/Win32/FreeImage.dll  ${PROJECT_BINARY_DIR}/Debug/FreeImage.dll)
 
-set_property(TARGET FREEIMAGEPLUS_LIB PROPERTY IMPORTED_LOCATION "F:/Projects/Studium/TSM_ProgAlg/FreeImage/Win32/FreeImagePlus.dll")
-set_property(TARGET FREEIMAGEPLUS_LIB PROPERTY IMPORTED_IMPLIB "F:/Projects/Studium/TSM_ProgAlg/FreeImage/Win32/FreeImagePlus.lib")
-
-set_property(TARGET OPEN_CL_LIB PROPERTY IMPORTED_LOCATION "F:/Projects/Studium/TSM_ProgAlg/FreeImage/Win32/FreeImagePlus.dll")
-set_property(TARGET OPEN_CL_LIB PROPERTY IMPORTED_IMPLIB "F:/Projects/Studium/TSM_ProgAlg/FreeImage/Win32/FreeImagePlus.lib")
-
+set_property(TARGET FREEIMAGEPLUS_LIB PROPERTY IMPORTED_LOCATION $ENV{FREEIMAGE_SDK}/Win32/FreeImagePlus.dll)
+set_property(TARGET FREEIMAGEPLUS_LIB PROPERTY IMPORTED_IMPLIB $ENV{FREEIMAGE_SDK}/Win32/FreeImagePlus.lib)
+configure_file($ENV{FREEIMAGE_SDK}/Win32/FreeImagePlus.dll  ${PROJECT_BINARY_DIR}/Debug/FreeImagePlus.dll)
 
 set(INCLUDE_DIRECTORIES
         $ENV{FREEIMAGE_SDK}
@@ -57,9 +55,15 @@ else (CYGWIN)
     set(INCLUDE_DIRECTORIES ${INCLUDE_DIRECTORIES} $ENV{OPEN_CL})
 endif ()
 
+set(RESOURCE_FILES
+  edges.cl
+)
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/edges.cl ${PROJECT_BINARY_DIR}/Debug/edges.cl COPYONLY)
+
 include_directories(
         ${INCLUDE_DIRECTORIES}
 )
 
-add_executable(02_Exercise ${SOURCE_FILES})
+add_executable(02_Exercise ${SOURCE_FILES} ${RESOURCE_FILES})
 target_link_libraries(02_Exercise FREEIMAGE_LIB FREEIMAGEPLUS_LIB OpenCL::OpenCL)

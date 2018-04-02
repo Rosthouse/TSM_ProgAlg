@@ -10,6 +10,8 @@ __kernel void edges(__read_only image2d_t source, __write_only image2d_t dest, _
 	const int w = get_global_size(0);
 	const int h = get_global_size(1);
 
+	
+
 	// TODO implement edge detection without using local memory
 	// use read_imageui(...) and write_imageui(...) to read/write one pixel of source/dest
 

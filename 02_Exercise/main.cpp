@@ -235,10 +235,10 @@ int main(int argc, const char* argv[]) {
 	
 	// process image on GPU with OpenCL and produce out2
 #ifdef USE_LOCAL_MEM
-	OCLData ocl = initOCL("../02_Exercise/edges.cl", "edgesWithLocalMem");
+	OCLData ocl = initOCL("edges.cl", "edgesWithLocalMem");
 	cout << endl << "Start OpenCL on GPU with local memory" << endl;
 #else
-	OCLData ocl = initOCL("../02_Exercise/edges.cl", "edges");
+	OCLData ocl = initOCL("edges.cl", "edges");
 	cout << endl << "Start OpenCL on GPU" << endl;
 #endif
 	sw.Start();
