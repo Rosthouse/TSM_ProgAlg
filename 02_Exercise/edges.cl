@@ -6,12 +6,23 @@ uint dist(int x, int y) {
 
 ////////////////////////////////////////////////////////////////////////
 // OpenCL kernel
+///
+/// param source Image that is read from
+/// param dest Image that is written to
+/// param hFilter The horizontal filter
+/// param vFilter The vertical filter
+/// param fSize Size of the filter
+/// param sampler Needed for reading pixels
 __kernel void edges(__read_only image2d_t source, __write_only image2d_t dest, __constant int* hFilter, __constant int* vFilter, int fSize, sampler_t sampler) {
 	const int w = get_global_size(0);
 	const int h = get_global_size(1);
 
-	
+	const int2 pos = { get_global_id(0), get_global_id(1) };
 
+	int4 pixelAtPos = read_imageui(source, sampler, pos);
+
+	write_imageui(dest, pos, { 1.0 - pixelAtPos.r, 1.0 - pixelAtPos.g, 1.0 - pixelAtPos.b, 1.0 - pixelAtPos.a});
+	
 	// TODO implement edge detection without using local memory
 	// use read_imageui(...) and write_imageui(...) to read/write one pixel of source/dest
 

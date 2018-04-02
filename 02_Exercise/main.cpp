@@ -265,7 +265,7 @@ int main(int argc, const char* argv[]) {
 #endif
 	
 	// save output image
-	if (!out3.save(argv[3])) {
+	if (!out2.save(argv[3])) {
 		cerr << "Image not saved: " << argv[3] << endl;
 		return -1;
 	}
