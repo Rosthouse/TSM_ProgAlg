@@ -1,3 +1,4 @@
+#include <math.h>
 #include "Stopwatch.h"
 #include "main.h"
 #include "ocl.h"
