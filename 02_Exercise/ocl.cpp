@@ -81,7 +81,7 @@ OCLData initOCL(const char* kernelFileName, const char* kernelName) {
 
 		// compile and execute s_kernel code
 		cl::Program program(ocl.m_context, progSource);									// create program object
-		program.build(devices, "-g -s F:\Projects\Studium\TSM_ProgAlg\02_Exercise\edges.cl");															// build the program for given devices
+		program.build(devices);															// build the program for given devices
 		ocl.m_kernel = cl::Kernel(program, kernelName);									// create the s_kernel: must be the name of the s_kernel in the cl file
 
 	} catch(cl::Error& err) {
