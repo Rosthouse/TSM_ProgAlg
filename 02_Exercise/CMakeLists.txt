@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8.4)
 project(02_Exercise)
 
 set(CMAKE_CXX_STANDARD 14)
-set(ENV{FREEIMAGE_SDK} "F:/Projects/Studium/TSM_ProgAlg/FreeImage" CACHE PATH)
-set(ENV{STOPWATCH} "F:/Projects/Studium/TSM_ProgAlg/Stopwatch" CACHE PATH)
+set(ENV{FREEIMAGE_SDK} "${PROJECT_SOURCE_DIR}/../FreeImage" CACHE PATH)
+set(ENV{STOPWATCH} "${PROJECT_SOURCE_DIR}/../Stopwatch" CACHE PATH)
 set(ENV{OPEN_CL} "F:/SDKs/OpenCL/OpenCL-Headers/opencl22" CACHE PATH)
 
 find_package(OpenCL REQUIRED)
