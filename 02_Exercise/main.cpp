@@ -264,6 +264,8 @@ int main(int argc, const char* argv[]) {
 	cout << boolalpha << "OpenMP and AMP produce the same results: " << equals(out1, out3, fSize) << endl << endl; // should return true if AMP uses precise_math::sqrtf
 #endif
 	
+
+
 	// save output image
 	if (!out2.save(argv[3])) {
 		cerr << "Image not saved: " << argv[3] << endl;
