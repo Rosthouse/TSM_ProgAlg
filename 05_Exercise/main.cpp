@@ -10,7 +10,7 @@ using namespace std;
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Prototypes
 void matMultSeq(const int* a, const int* b, int* const c, const int n);
-void matMultCPU(const int* a, const int* b, int* const c, const int n);
+void matMultCPU(const int* a, const int* b, int* const c, int n);
 void matMultGPU(OCLData& ocl, const int* a, const int* b, int* const c, const int n);
 OCLData initOCL(const char* kernelFileName, const char* kernelName);
 
