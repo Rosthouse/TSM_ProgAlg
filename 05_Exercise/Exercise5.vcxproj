@@ -58,7 +58,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
-    <Import Project="C:\Frameworks\Intel\OpenCL\sdk\BuildCustomizations\IntelOpenCL.props" />
+    <Import Project="F:\SDKs\Intel\OpenCL\sdk\BuildCustomizations\IntelOpenCL.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
     <Import Project="..\Stopwatch\Stopwatch.vcxitems" Label="Shared" />
@@ -197,6 +197,6 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="C:\Frameworks\Intel\OpenCL\sdk\BuildCustomizations\IntelOpenCL.targets" />
+    <Import Project="F:\SDKs\Intel\OpenCL\sdk\BuildCustomizations\IntelOpenCL.targets" />
   </ImportGroup>
 </Project>
