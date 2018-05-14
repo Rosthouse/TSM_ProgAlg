@@ -6,3 +6,5 @@ x64
 # VS stuff
 .vs
 *.vcxproj.user
+
+**/Build
