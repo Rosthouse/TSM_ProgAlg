@@ -2,6 +2,9 @@
 
 #define CL_USE_DEPRECATED_OPENCL_2_0_APIS
 #define __CL_ENABLE_EXCEPTIONS
+#define _WIN32 1
+
+
 #include "cl.hpp"
 
 // http://www.khronos.org/registry/cl/specs/opencl-cplusplus-1.2.pdf	// C++ manual
@@ -11,7 +14,7 @@
 //#include <CL/cl.h>
 
 struct OCLData {
-	cl::Context m_context;
-	cl::CommandQueue m_queue;
-	cl::Kernel m_kernel;
+    cl::Context m_context;
+    cl::CommandQueue m_queue;
+    cl::Kernel m_kernel;
 };

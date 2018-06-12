@@ -1,10 +1,9 @@
 .idea 
-cmake-build-debug 
-cmake-build-debug-cygwin 
+*/cmake-build-*/**/* 
 x64
 
 # VS stuff
 .vs
 *.vcxproj.user
 
-**/Build
+*/Build/**/*

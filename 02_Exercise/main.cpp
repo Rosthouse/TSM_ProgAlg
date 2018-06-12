@@ -1,3 +1,4 @@
+#include <math.h>
 #include "Stopwatch.h"
 #include "main.h"
 #include "ocl.h"
@@ -196,6 +197,7 @@ int main(int argc, const char* argv[]) {
 	const int *vFilter;
 
 	switch(fSize) {
+	default:
 	case 3:
 		hFilter = hFilter3;
 		vFilter = vFilter3;
@@ -233,10 +235,10 @@ int main(int argc, const char* argv[]) {
 	
 	// process image on GPU with OpenCL and produce out2
 #ifdef USE_LOCAL_MEM
-	OCLData ocl = initOCL("../Exercise2/edges.cl", "edgesWithLocalMem");
+	OCLData ocl = initOCL("edges.cl", "edgesWithLocalMem");
 	cout << endl << "Start OpenCL on GPU with local memory" << endl;
 #else
-	OCLData ocl = initOCL("../Exercise2/edges.cl", "edges");
+	OCLData ocl = initOCL("edges.cl", "edges");
 	cout << endl << "Start OpenCL on GPU" << endl;
 #endif
 	sw.Start();
@@ -262,8 +264,10 @@ int main(int argc, const char* argv[]) {
 	cout << boolalpha << "OpenMP and AMP produce the same results: " << equals(out1, out3, fSize) << endl << endl; // should return true if AMP uses precise_math::sqrtf
 #endif
 	
+
+
 	// save output image
-	if (!out3.save(argv[3])) {
+	if (!out2.save(argv[3])) {
 		cerr << "Image not saved: " << argv[3] << endl;
 		return -1;
 	}
