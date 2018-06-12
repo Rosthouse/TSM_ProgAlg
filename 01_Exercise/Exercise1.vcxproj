@@ -111,11 +111,18 @@
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>C:\Work\Studium\TSM_ProgAlg\FreeImage;C:\Work\Studium\TSM_ProgAlg\Stopwatch;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>../FreeImage/x64/FreeImage.lib;../FreeImage/x64/FreeImagePlus.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>-fopenmp %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /d /y "$(ProjectDir)DLL\x64\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
