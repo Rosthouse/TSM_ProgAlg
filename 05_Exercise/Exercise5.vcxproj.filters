@@ -8,6 +8,7 @@
   <ItemGroup>
     <ClInclude Include="cl.hpp" />
     <ClInclude Include="ocl.h" />
+    <ClInclude Include="matrix.h" />
   </ItemGroup>
   <ItemGroup>
     <Intel_OpenCL_Build_Rules Include="matrixmult.cl" />
